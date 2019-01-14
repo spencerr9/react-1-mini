@@ -3,7 +3,7 @@ import './App.css';
 
 class App extends Component {
   constructor(){
-    super() 
+    super()
 
     this.state = {
       friends: [],
@@ -12,21 +12,21 @@ class App extends Component {
     }
   }
 
-  updatePicture(value){
+  addPicture(value){
     this.setState({
       picture: value
     })
   }
 
-  updateName(value){
+  addName(value){
     this.setState({
       name: value
     })
   }
 
   addFriend(){
-    const {friends, picture, name} = this.state
-    let newFriends = friends.slice()
+    const {picture, name} = this.state
+    let newFriends = this.state.friends.slice()
     newFriends.push({picture, name})
 
     this.setState({
@@ -38,20 +38,17 @@ class App extends Component {
 
   render() {
     console.log(this.state)
-    const friends = this.state.friends.map((element, index, array) => 
-      // console.log(element, index, array) 
-    (
-      <div key={index}>
-        <img width='100px' src={element.picture} alt=""/>
-        <span>{element.name}</span>
+    const friends = this.state.friends.map((e, i, arr) => (
+      <div key={i}>
+        <img width='100px' src={e.picture} alt=''></img>
+        <span>{e.name}</span>
       </div>
-    )
-    )
+    ))
     return (
       <div>
-        Picture:<input onChange={e => this.updatePicture(e.target.value)} ></input>   
-        Name:<input onChange={e => this.updateName(e.target.value)}></input> 
-        <button onClick={() => this.addFriend()}>Add Friend</button>
+        Picture: <input onChange={e => this.addPicture(e.target.value)} value={this.state.picture} />
+        Name: <input onChange={e => this.addName(e.target.value)} value={this.state.name} />
+        <button onClick={() => this.addFriend()} >Add Friend</button>
         {friends}
       </div>
     );
